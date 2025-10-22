@@ -56,3 +56,13 @@ body {
   font-size: small;
   font-family: 'Courier New';
 }
+
+.scroll-column:nth-child(1) {
+  width: 40vw;
+}
+.scroll-column:nth-child(2) {
+  width: 25vw;
+}
+.scroll-column:nth-child(3) {
+  width: 35vw;
+}
