@@ -35,84 +35,9 @@ let d2 = 0;
 
 var silence = true;
 
-const sexyMove1 = [
-  'R',
-  'U',
-  "R'",
-  "U'",
-  'R',
-  'U',
-  "R'",
-  "U'",
-  'R',
-  'U',
-  "R'",
-  "U'",
-  'R',
-  'U',
-  "R'",
-  "U'",
-  'R',
-  'U',
-  "R'",
-  "U'",
-  'R',
-  'U',
-  "R'",
-  "U'",
-];
-const sexyMove2 = [
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-  'L',
-  'F',
-  'U',
-  'F',
-  'R',
-  'F2',
-];
-const sexyMove3 = [
-  'R2',
-  'L2',
-  'U2',
-  'R2',
-  'L2',
-  'U2',
-  'R2',
-  'L2',
-  'U2',
-  'R2',
-  'L2',
-  'U2',
-];
+const sexyMove1 = ['R','U',"R'","U'",'R','U',"R'","U'",'R','U',"R'","U'",'R','U',"R'","U'",'R','U',"R'","U'",'R','U',"R'","U'"];
+const sexyMove2 = ['L','F','U','F','R','F2','L','F','U','F','R','F2','L','F','U','F','R','F2','L','F','U','F','R','F2','L','F','U','F','R','F2','L','F','U','F','R','F2'];
+const sexyMove3 = ['R2','L2','U2','R2','L2','U2','R2','L2','U2','R2','L2','U2'];
 
 const startup =
   'cor=1.5\n\nimport motor\n\nfrom hub import port, light_matrix, sound\n\nimport time\n\nlayer = motor.run_for_degrees\n\nlight_matrix.clear();\nmotor.motor_set_high_resolution_mode(port.A, True);\nmotor.motor_set_high_resolution_mode(port.B, True);\nmotor.motor_set_high_resolution_mode(port.C, True);\nmotor.motor_set_high_resolution_mode(port.D, True);\nmotor.motor_set_high_resolution_mode(port.E, True);\nmotor.motor_set_high_resolution_mode(port.F, True)';
@@ -410,13 +335,7 @@ async function startReading(which, reader) {
               if (batteryIcon) {
                 // Remove all existing battery classes
                 batteryIcon.classList.remove(
-                  'icon-battery-0',
-                  'icon-battery-25',
-                  'icon-battery-50',
-                  'icon-battery-75',
-                  'icon-battery-100',
-                  'fa-solid',
-                  'fa-xmark'
+                  'icon-battery-0',                'icon-battery-25',                'icon-battery-50',                'icon-battery-75',                'icon-battery-100',                'fa-solid',                'fa-xmark'
                 );
                 // Map the battery level to the closest icon class
                 let iconClass;
@@ -481,13 +400,7 @@ function ganB() {
 
   // Remove all existing battery classes
   ganBatterie.classList.remove(
-    'icon-battery-0',
-    'icon-battery-25',
-    'icon-battery-50',
-    'icon-battery-75',
-    'icon-battery-100',
-    'fa-solid',
-    'fa-xmark'
+    'icon-battery-0',  'icon-battery-25',  'icon-battery-50',  'icon-battery-75',  'icon-battery-100',  'fa-solid',  'fa-xmark'
   );
 
   // Map the battery level to the closest icon class
