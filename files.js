@@ -11,7 +11,7 @@ window.initialFiles = {
       path: 'index.html',
       name: 'code.html',
       type: 'HTML',
-    },
+    }
   ],
   css: [
     { 
