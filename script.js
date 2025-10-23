@@ -1,12 +1,11 @@
 let files = window.initialFiles;
-let speed = 1.2
+let speed = 1.2;
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
   createColumns();
   loadFiles();
 });
-
 
 // Créer les colonnes
 function createColumns() {
@@ -21,7 +20,12 @@ function createColumns() {
     <span class="filename">${files.html[0].name}</span>
     <span class="filetype" id="html">HTML</span>
   </div>
-  <pre><code id="${files.html[0].id}" class="language-html"></code></pre>
+  ${files.html
+    .map(
+      (file) =>
+        `<pre><code id="${file.id}" class="language-html"></code></pre>`
+    )
+    .join('')}
   `;
   container.appendChild(htmlColumn);
 
@@ -33,8 +37,13 @@ function createColumns() {
     <span class="filename">${files.css[0].name}</span>
     <span class="filetype" id="css">CSS</span>
   </div>
-  <pre><code id="${files.css[0].id}" class="language-css"></code></pre>
-`;
+  ${files.css
+    .map(
+      (file) =>
+        `<pre><code id="${file.id}" class="language-css"></code></pre>`
+    )
+    .join('')}
+  `;
   container.appendChild(cssColumn);
 
   // Colonne JS
@@ -51,27 +60,31 @@ function createColumns() {
         `<pre><code id="${file.id}" class="language-javascript"></code></pre>`
     )
     .join('')}
-`;
+  `;
   container.appendChild(jsColumn);
 }
 
 // Charger les fichiers
 function loadFiles() {
-  const htmlPromise = fetch(files.html[0].path)
-    .then((res) => res.text())
-    .then((code) => ({ id: files.html[0].id, code }))
-    .catch((error) => ({
-      id: files.html[0].id,
-      code: `<!-- Erreur: ${error.message} -->`,
-    }));
+  const htmlPromises = files.html.map((file) =>
+    fetch(file.path)
+      .then((res) => res.text())
+      .then((code) => ({ id: file.id, code }))
+      .catch((error) => ({
+        id: file.id,
+        code: `<!-- Erreur: ${error.message} -->`,
+      }))
+  );
 
-  const cssPromise = fetch(files.css[0].path)
-    .then((res) => res.text())
-    .then((code) => ({ id: files.css[0].id, code }))
-    .catch((error) => ({
-      id: files.css[0].id,
-      code: `/* Erreur: ${error.message} */`,
-    }));
+  const cssPromises = files.css.map((file) =>
+    fetch(file.path)
+      .then((res) => res.text())
+      .then((code) => ({ id: file.id, code }))
+      .catch((error) => ({
+        id: file.id,
+        code: `/* Erreur: ${error.message} */`,
+      }))
+  );
 
   const jsPromises = files.js.map((file) =>
     fetch(file.path)
@@ -83,39 +96,33 @@ function loadFiles() {
       }))
   );
 
-  Promise.all([htmlPromise, cssPromise, ...jsPromises]).then((results) => {
-    console.log(results);
-    const htmlResult = results[0];
-    document.getElementById(htmlResult.id).textContent = htmlResult.code;
-    hljs.highlightElement(document.getElementById(htmlResult.id));
-
-    const cssResult = results[1];
-    document.getElementById(cssResult.id).textContent = cssResult.code;
-    hljs.highlightElement(document.getElementById(cssResult.id));
-
-    const jsResults = results.slice(2);
-    jsResults.forEach((result) => {
-      document.getElementById(result.id).textContent = result.code;
-      hljs.highlightElement(document.getElementById(result.id));
+  Promise.all([...htmlPromises, ...cssPromises, ...jsPromises]).then((results) => {
+    results.forEach((result) => {
+      const el = document.getElementById(result.id);
+      if (!el) return;
+      el.textContent = result.code;
+      hljs.highlightElement(el);
     });
 
     startAutoScroll(
       document.querySelector('.scroll-column:nth-child(1)'),
-      [files.html[0].id],
-      [files.html[0].name],
-      ['HTML']
+      files.html.map((f) => f.id),
+      files.html.map((f) => f.name),
+      files.html.map(() => 'HTML')
     );
+
     startAutoScroll(
       document.querySelector('.scroll-column:nth-child(2)'),
-      [files.css[0].id],
-      [files.css[0].name],
-      ['CSS']
+      files.css.map((f) => f.id),
+      files.css.map((f) => f.name),
+      files.css.map(() => 'CSS')
     );
+
     startAutoScroll(
       document.querySelector('.scroll-column:nth-child(3)'),
       files.js.map((f) => f.id),
       files.js.map((f) => f.name),
-      files.js.map((f) => f.type)
+      files.js.map(() => 'JavaScript')
     );
   });
 }
@@ -188,3 +195,25 @@ function startAutoScroll(column, fileIds, filenames, filetypes) {
 
   scroll();
 }
+
+let ogSpeed = speed;
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    speed = e.shiftKey ? 20 : 10;
+  } else if (e.key === "Shift" && speed === 10) {
+    speed = 20; // press Shift while holding ArrowDown
+  } else if (e.key === "ArrowUp") {
+    speed = 0;
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "Shift" && speed === 20) {
+    speed = 10; // release Shift, still holding ArrowDown
+  } else if (e.key === "ArrowDown") {
+    speed = ogSpeed; // release ArrowDown
+  } else if (e.key === "ArrowUp") {
+    speed = ogSpeed;
+  }
+});

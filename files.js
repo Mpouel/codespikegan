@@ -13,7 +13,20 @@ window.initialFiles = {
       type: 'HTML',
     },
   ],
-  css: [{ id: 'css1', path: 'a/spike.css', name: 'spike.css', type: 'CSS' }],
+  css: [
+    { 
+      id: 'css1', 
+      path: 'a/spike.css', 
+      name: 'spike.css', 
+      type: 'CSS' 
+    },
+    {
+      id:'css2',
+      path: 'styles.css',
+      name: 'code.css',
+      type: 'CSS'
+    }
+  ],
   js: [
     {
       id: 'js1',
@@ -29,12 +42,24 @@ window.initialFiles = {
     },
     {
       id: 'js3',
+      path: 'a/three.js',
+      name: 'three.js',
+      type: 'JavaScript',
+    },
+    {
+      id: 'js4',
+      path: 'script.js',
+      name: 'code.js',
+      type: 'JavaScript',
+    },
+    {
+      id: 'js5',
       path: 'a/kb.js',
       name: 'kb.js',
       type: 'JavaScript',
     },
     {
-      id: 'js4',
+      id: 'js6',
       path: 'a/fs.js',
       name: 'fs.js',
       type: 'JavaScript',
