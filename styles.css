@@ -66,3 +66,15 @@ body {
 .scroll-column:nth-child(3) {
   width: 35vw;
 }
+
+#html {
+  color: #B85F00;
+}
+
+#css {
+  color: #005FCC;
+}
+
+#js {
+  color: #C7A600;
+}

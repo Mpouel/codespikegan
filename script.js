@@ -19,7 +19,7 @@ function createColumns() {
   htmlColumn.innerHTML = `
   <div class="banner">
     <span class="filename">${files.html[0].name}</span>
-    <span class="filetype">HTML</span>
+    <span class="filetype" id="html">HTML</span>
   </div>
   <pre><code id="${files.html[0].id}" class="language-html"></code></pre>
   `;
@@ -31,7 +31,7 @@ function createColumns() {
   cssColumn.innerHTML = `
   <div class="banner">
     <span class="filename">${files.css[0].name}</span>
-    <span class="filetype">CSS</span>
+    <span class="filetype" id="css">CSS</span>
   </div>
   <pre><code id="${files.css[0].id}" class="language-css"></code></pre>
 `;
@@ -43,7 +43,7 @@ function createColumns() {
   jsColumn.innerHTML = `
   <div class="banner">
     <span class="filename">${files.js[0].name}</span>
-    <span class="filetype">JavaScript</span>
+    <span class="filetype" id="js">JavaScript</span>
   </div>
   ${files.js
     .map(
